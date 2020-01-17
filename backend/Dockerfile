@@ -4,4 +4,4 @@ COPY package.json /app
 RUN npm install
 COPY src /app
 EXPOSE 9000
-CMD node index.js
+CMD npm run dev

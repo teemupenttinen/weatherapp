@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -8,6 +7,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  watchOptions: process.env.HOST_PLATFORM === "win32" ? {
+    poll: 1000
+  } : {},
   devServer: {
     contentBase: 'src/public',
     historyApiFallback: true,
