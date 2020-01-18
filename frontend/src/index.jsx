@@ -3,20 +3,7 @@ import ReactDOM from 'react-dom';
 import CurrentWeatherWidget from './components/CurrentWeatherWidget';
 import ForecastList from './components/ForecastList';
 import { epochConverter } from './common/utils';
-
-const baseURL = process.env.ENDPOINT;
-
-const getWeatherFromApi = async () => {
-  try {
-    const response = await fetch(`${baseURL}/weather`);
-    return response.json();
-  } catch (error) {
-    console.error(error);
-  }
-
-  return {};
-};
-
+import { getWeatherFromApi } from './common/api';
 
 class Weather extends React.Component {
   constructor(props) {

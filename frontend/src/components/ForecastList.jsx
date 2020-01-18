@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ForecastItem from './ForecastItem';
 import { epochConverter } from '../common/utils';
+import { getForecastFromApi } from '../common/api';
 
 import './ForecastList.module.css'
-
-const baseURL = process.env.ENDPOINT;
 
 export default function ForecastList(props) {
 
     const [forecasts, setForecasts] = useState([]);
-
-    const getForecastFromApi = async () => {
-        try {
-            const response = await fetch(`${baseURL}/forecast`);
-            return response.json();
-        } catch (error) {
-            console.error(error);
-        }
-
-        return [];
-    };
 
     useEffect(() => {
         getForecastFromApi().then((response) => {
