@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.jsx',
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
   },
   watchOptions: process.env.HOST_PLATFORM === "win32" ? {
     poll: 1000
@@ -18,7 +18,7 @@ module.exports = {
   },
   devtool: 'eval',
   output: {
-    filename: 'index.jsx',
+    filename: 'index.js',
     publicPath: '/',
   },
   module: {
@@ -28,9 +28,31 @@ module.exports = {
         exclude: /node_modules/,
         use: [{
           loader: 'babel-loader',
-          options: { presets: ['react', 'es2016'] },
+          options: { presets: ['@babel/react', '@babel/preset-env'] },
         }],
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
+        include: /\.module\.css$/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        exclude: /\.module\.css$/
+      }
     ],
   },
   plugins: [
