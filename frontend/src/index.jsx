@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CurrentWeatherWidget from './components/CurrentWeatherWidget';
+import ForecastList from './components/ForecastList';
+import { epochConverter } from './common/utils';
 
 const baseURL = process.env.ENDPOINT;
 
@@ -14,26 +17,44 @@ const getWeatherFromApi = async () => {
   return {};
 };
 
+
 class Weather extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       icon: "",
+      name: "",
+      temp: "",
+      time: ""
     };
   }
 
   async componentWillMount() {
-    const weather = await getWeatherFromApi();
-    this.setState({icon: weather.icon.slice(0, -1)});
+    const weatherResponse = await getWeatherFromApi();
+    console.log(weatherResponse);
+    this.setState({
+      icon: weatherResponse.weather[0].icon.slice(0, -1),
+      name: weatherResponse.name,
+      temp: weatherResponse.main.temp,
+      time: epochConverter(weatherResponse.dt)
+    });
   }
 
   render() {
-    const { icon } = this.state;
+    const { icon, name, temp, time } = this.state;
 
     return (
-      <div className="icon">
-        { icon && <img src={`/img/${icon}.svg`} /> }
+      <div className="wrapper">
+        <div className="content">
+          <CurrentWeatherWidget
+            icon={icon}
+            name={name}
+            temp={temp}
+            time={time}
+          />
+          <ForecastList />
+        </div>
       </div>
     );
   }
