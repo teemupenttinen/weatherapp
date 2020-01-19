@@ -1,66 +1,51 @@
 const baseURL = process.env.ENDPOINT;
 
 const getWeatherFromApi = async () => {
-    try {
-        const response = await fetch(`${baseURL}/weather`);
-        return response.json();
-    } catch (error) {
-        console.error(error);
-    }
-
-    return {};
+  try {
+    const response = await fetch(`${baseURL}/weather`);
+    return response.json();
+  } catch (error) {
+    throw new Error('Error fetching weather from api');
+  }
 };
 
-const _getWeatherFromApi = getWeatherFromApi;
-export { _getWeatherFromApi as getWeatherFromApi };
+export { getWeatherFromApi };
 
 const getWeatherFromApiWithLocation = async (location) => {
+  const lat = location.coords.latitude.toFixed(2);
+  const lon = location.coords.longitude.toFixed(2);
 
-    const lat = location.coords.latitude.toFixed(2);
-    const lon = location.coords.longitude.toFixed(2);
-
-    try {
-        const response = await fetch(`${baseURL}/weather?lat=${lat}&lon=${lon}`);
-        return response.json();
-    } catch (error) {
-        console.error(error);
-    }
-
-    return [];
-}
-
-const _getWeatherFromApiWithLocation = getWeatherFromApiWithLocation;
-export { _getWeatherFromApiWithLocation as getWeatherFromApiWithLocation };
-
-const getForecastFromApi = async () => {
-    try {
-        const response = await fetch(`${baseURL}/forecast`);
-        return response.json();
-    } catch (error) {
-        console.error(error);
-    }
-
-    return [];
+  try {
+    const response = await fetch(`${baseURL}/weather?lat=${lat}&lon=${lon}`);
+    return response.json();
+  } catch (error) {
+    throw new Error('Error fetching weather from api');
+  }
 };
 
-const _getForecastFromApi = getForecastFromApi;
-export { _getForecastFromApi as getForecastFromApi };
+export { getWeatherFromApiWithLocation };
+
+const getForecastFromApi = async () => {
+  try {
+    const response = await fetch(`${baseURL}/forecast`);
+    return response.json();
+  } catch (error) {
+    throw new Error('Error fetching forecast from api');
+  }
+};
+
+export { getForecastFromApi };
 
 const getForecastFromApiWithLocation = async (location) => {
-    const lat = location.coords.latitude.toFixed(2);
-    const lon = location.coords.longitude.toFixed(2);
+  const lat = location.coords.latitude.toFixed(2);
+  const lon = location.coords.longitude.toFixed(2);
 
-    try {
-        const response = await fetch(`${baseURL}/forecast?lat=${lat}&lon=${lon}`);
-        return response.json();
-    } catch (error) {
-        console.error(error);
-    }
+  try {
+    const response = await fetch(`${baseURL}/forecast?lat=${lat}&lon=${lon}`);
+    return response.json();
+  } catch (error) {
+    throw new Error('Error fetching forecast from api');
+  }
+};
 
-    return [];
-}
-
-const _getForecastFromApiWithLocation = getForecastFromApiWithLocation;
-export { _getForecastFromApiWithLocation as getForecastFromApiWithLocation };
-
-
+export { getForecastFromApiWithLocation };

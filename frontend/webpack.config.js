@@ -5,10 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.jsx',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
-  watchOptions: process.env.HOST_PLATFORM === "win32" ? {
-    poll: 1000
+  watchOptions: process.env.HOST_PLATFORM === 'win32' ? {
+    poll: 1000,
   } : {},
   devServer: {
     contentBase: 'src/public',
@@ -43,16 +43,16 @@ module.exports = {
             },
           },
         ],
-        include: /\.module\.css$/
+        include: /\.module\.css$/,
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader'
+          'css-loader',
         ],
-        exclude: /\.module\.css$/
-      }
+        exclude: /\.module\.css$/,
+      },
     ],
   },
   plugins: [
