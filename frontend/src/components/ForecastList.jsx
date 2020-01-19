@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ForecastItem from './ForecastItem';
 import { epochConverter } from '../common/utils';
-import { getForecastFromApi } from '../common/api';
+import { getForecastFromApi, getForecastFromApiWithLocation } from '../common/api';
 
 import './ForecastList.module.css'
 
@@ -10,11 +10,22 @@ export default function ForecastList(props) {
     const [forecasts, setForecasts] = useState([]);
 
     useEffect(() => {
-        getForecastFromApi().then((response) => {
-            if (response.list) {
-                setForecasts([...response.list.splice(0, 5)]);
-            }
+        navigator.geolocation.getCurrentPosition(async (location) => {
+            getForecastFromApiWithLocation(location).then((response) => {              
+                if (response.list) {
+                    setForecasts([...response.list.splice(0, 5)]);
+                }
+            });
+
+        }, async (error) => {
+            console.log(error);
+            getForecastFromApi().then((response) => {
+                if (response.list) {
+                    setForecasts([...response.list.splice(0, 5)]);
+                }
+            });
         });
+
     }, []);
 
     const View = () => {
@@ -39,6 +50,7 @@ export default function ForecastList(props) {
             </ul>
         )
     }
+    
     return (
         <View />
     )

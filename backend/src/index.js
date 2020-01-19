@@ -15,23 +15,41 @@ const app = new Koa();
 
 app.use(cors());
 
-const fetchWeather = async (queryPath) => {
-  const endpoint = `${mapURI}/${queryPath}?q=${targetCity}&appid=${appId}&units=metric`;
-  const response = await fetch(endpoint);  
+const fetchWeather = async (queryPath, queryParams) => {
+  let endpoint = `${mapURI}/${queryPath}?appid=${appId}&units=metric`;
+  if (queryParams) {
+    endpoint += "&" + Object.keys(queryParams).map(key => key + '=' + queryParams[key]).join('&');
+  }
+  else{
+    endpoint += `&q=${targetCity}`;
+  }
+  const response = await fetch(endpoint);
   return response ? response.json() : {}
 };
 
 
 router.get('/api/weather', async ctx => {
-  const weatherData = await fetchWeather("weather");
+  let weatherData = {};
+  if (ctx.query.lon && ctx.query.lat) {
+    weatherData = await fetchWeather("weather", { lat: ctx.query.lat, lon: ctx.query.lon });
+  }
+  else {
+    weatherData = await fetchWeather("weather");
+  }
   ctx.type = 'application/json; charset=utf-8';
   ctx.body = weatherData.weather ? weatherData : {};
 });
 
 router.get('/api/forecast', async ctx => {
-  const weatherData = await fetchWeather("forecast");
+  let weatherData = {};
+  if (ctx.query.lon && ctx.query.lat) {
+    weatherData = await fetchWeather("forecast", { lat: ctx.query.lat, lon: ctx.query.lon });
+  }
+  else {
+    weatherData = await fetchWeather("forecast");
+  }
   ctx.type = 'application/json; charset=utf-8';
-  ctx.body = weatherData;
+  ctx.body = weatherData ? weatherData : {};
 });
 
 app.use(router.routes());

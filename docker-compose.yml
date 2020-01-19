@@ -19,7 +19,7 @@ services:
             - secret.yml
         environment: 
             MAP_ENDPOINT: 'http://api.openweathermap.org/data/2.5'
-            TARGET_CITY: 'Espoo,fi'
+            TARGET_CITY: 'Turku,fi'
         volumes: 
             - ./backend:/app
             -  /app/node_modules

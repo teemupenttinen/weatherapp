@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CurrentWeatherWidget from './components/CurrentWeatherWidget';
 import ForecastList from './components/ForecastList';
 import { epochConverter } from './common/utils';
-import { getWeatherFromApi } from './common/api';
+import { getWeatherFromApi, getWeatherFromApiWithLocation } from './common/api';
 
 class Weather extends React.Component {
   constructor(props) {
@@ -17,14 +17,23 @@ class Weather extends React.Component {
     };
   }
 
-  async componentWillMount() {
-    const weatherResponse = await getWeatherFromApi();
-    console.log(weatherResponse);
+  setWeatherResponse(weatherResponse) {
     this.setState({
       icon: weatherResponse.weather[0].icon.slice(0, -1),
       name: weatherResponse.name,
       temp: weatherResponse.main.temp,
       time: epochConverter(weatherResponse.dt)
+    });
+  }
+
+  async componentWillMount() {
+    navigator.geolocation.getCurrentPosition(async (location) => {
+      const weatherResponse = await getWeatherFromApiWithLocation(location);
+      this.setWeatherResponse(weatherResponse);
+    }, async (error) => {
+      console.log(error);
+      const weatherResponse = await getWeatherFromApi();
+      this.setWeatherResponse(weatherResponse);
     });
   }
 

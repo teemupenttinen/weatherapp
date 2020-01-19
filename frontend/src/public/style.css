@@ -12,11 +12,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(161, 217, 255);
-  background: linear-gradient(180deg, rgba(161, 217, 255, 1) 0%, rgba(243, 230, 251, 1) 50%, rgba(255, 255, 255, 1) 100%);
+  background: rgb(129, 179, 219);
+  background: linear-gradient(180deg, rgba(129, 179, 219, 1) 0%, rgba(235, 235, 235, 1) 75%, rgba(255, 255, 255, 1) 100%);
 }
 
-.content{
+.content {
   width: 50vw;
   justify-content: space-between;
 }
