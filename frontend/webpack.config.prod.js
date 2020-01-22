@@ -1,24 +1,15 @@
 const webpack = require('webpack');
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
+  node: false,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  watchOptions: process.env.HOST_PLATFORM === 'win32' ? {
-    poll: 1000,
-  } : {},
-  devServer: {
-    contentBase: 'src/public',
-    historyApiFallback: true,
-    port: 8000,
-    host: '0.0.0.0',
-  },
-  devtool: 'eval',
   output: {
-    filename: 'index.js',
+    filename: 'bundle.js',
     publicPath: '/',
   },
   module: {
@@ -56,16 +47,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'src/public/index.html' }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new TransferWebpackPlugin([
-      { from: 'src/public' },
-    ], '.'),
+    new HtmlWebpackPlugin({ template: 'src/public/index.html', inject: true }),
+    new CopyPlugin([
+      { from: 'src/public/', to: '.' },
+    ]),
     new webpack.DefinePlugin({
-      'process.env': {
-        ENDPOINT: JSON.stringify(process.env.ENDPOINT),
-      },
+        'process.env.ENDPOINT': JSON.stringify(process.env.ENDPOINT || 'http://0.0.0.0:9000/api')
     }),
   ],
 };

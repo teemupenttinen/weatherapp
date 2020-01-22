@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    frontend:
+        environment:
+            HOST_PLATFORM: win32
+            ENDPOINT: 'http://localhost:9001/api'
+        volumes: 
+            - ./frontend:/app
+            - /app/node_modules
+            ports:
+                - '8000:8000'
+    test-backend:
+        build: ./test-backend
+        env_file: 
+            - secret.yml
+        environment: 
+            MAP_ENDPOINT: 'http://api.openweathermap.org/data/2.5'
+            TARGET_CITY: 'Turku,fi'
+        ports:
+            - '9001:9001'
+    backend:
+        volumes: 
+            - ./backend:/app
+            -  /app/node_modules
+        command: ['npm', 'run', 'test']

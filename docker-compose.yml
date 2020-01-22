@@ -3,14 +3,8 @@ version: '3'
 services:
     frontend:
         build: ./frontend
-        environment:
-            ENDPOINT: 'http://localhost:9000/api'
-            HOST_PLATFORM: win32
-        volumes: 
-            - ./frontend:/app
-            - /app/node_modules
         ports:
-            - '8000:8000'
+            - '80:80'
         depends_on:
             - backend 
     backend:
@@ -20,8 +14,5 @@ services:
         environment: 
             MAP_ENDPOINT: 'http://api.openweathermap.org/data/2.5'
             TARGET_CITY: 'Turku,fi'
-        volumes: 
-            - ./backend:/app
-            -  /app/node_modules
         ports:
             - '9000:9000'

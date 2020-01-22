@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    frontend:
+        build:
+            dockerfile: Dockerfile.dev
+        environment:
+            HOST_PLATFORM: win32
+            ENDPOINT: 'http://localhost:9000/api'
+        volumes: 
+            - ./frontend:/app
+            - /app/node_modules
+        ports:
+            - '8000:8000'
+    backend:
+        volumes: 
+            - ./backend:/app
+            -  /app/node_modules
+        command: ['npm', 'run', 'dev']
