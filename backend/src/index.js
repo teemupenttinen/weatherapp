@@ -49,6 +49,6 @@ router.get('/api/forecast', async ctx => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(port);
+module.exports = app.listen(port);
 
 console.log(`App listening on port ${port}`);

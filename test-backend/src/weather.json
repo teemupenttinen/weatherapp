@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": 24.62,
+    "lat": 60.16
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "broken clouds",
+      "icon": "04n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 3.50,
+    "feels_like": -1.35,
+    "temp_min": 2.78,
+    "temp_max": 4,
+    "pressure": 1022,
+    "humidity": 80
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 4.1,
+    "deg": 280
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1579521600,
+  "sys": {
+    "type": 1,
+    "id": 1332,
+    "country": "FI",
+    "sunrise": 1579417493,
+    "sunset": 1579442326
+  },
+  "timezone": 7200,
+  "id": 646495,
+  "name": "Espoo",
+  "cod": 200
+}
