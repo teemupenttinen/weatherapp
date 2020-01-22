@@ -14,8 +14,7 @@ export default function CurrentWeatherWidget(props) {
         </div>
         <div className={styles.temp}>
           <h2>
-            {temp}
-°C
+            {temp}°C
           </h2>
         </div>
         <div className={styles.time}>
@@ -31,7 +30,10 @@ export default function CurrentWeatherWidget(props) {
 
 CurrentWeatherWidget.propTypes = {
   name: PropTypes.string.isRequired,
-  temp: PropTypes.number.isRequired,
+  temp: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   icon: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
 };

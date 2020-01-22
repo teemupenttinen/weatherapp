@@ -1,8 +1,20 @@
 # Weatherapp
 
-There was a beautiful idea of building an app that would show the upcoming weather. The developers wrote a nice backend and a frontend following the latest principles and - to be honest - bells and whistles. However, the developers did not remember to add any information about the infrastructure or even setup instructions in the source code.
 
-Luckily we now have [docker compose](https://docs.docker.com/compose/) saving us from installing the tools on our computer, and making sure the app looks (and is) the same in development and in production. All we need is someone to add the few missing files!
+## Running containers 
+
+### Development 
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+### Testing
+
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up
+
+### Production
+You can simulate production with command:
+
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
 
 ## Prerequisites
 

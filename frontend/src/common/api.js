@@ -9,8 +9,6 @@ const getWeatherFromApi = async () => {
   }
 };
 
-export { getWeatherFromApi };
-
 const getWeatherFromApiWithLocation = async (location) => {
   const lat = location.coords.latitude.toFixed(2);
   const lon = location.coords.longitude.toFixed(2);
@@ -23,8 +21,6 @@ const getWeatherFromApiWithLocation = async (location) => {
   }
 };
 
-export { getWeatherFromApiWithLocation };
-
 const getForecastFromApi = async () => {
   try {
     const response = await fetch(`${baseURL}/forecast`);
@@ -33,8 +29,6 @@ const getForecastFromApi = async () => {
     throw new Error('Error fetching forecast from api');
   }
 };
-
-export { getForecastFromApi };
 
 const getForecastFromApiWithLocation = async (location) => {
   const lat = location.coords.latitude.toFixed(2);
@@ -48,4 +42,4 @@ const getForecastFromApiWithLocation = async (location) => {
   }
 };
 
-export { getForecastFromApiWithLocation };
+export { getWeatherFromApi, getWeatherFromApiWithLocation, getForecastFromApi, getForecastFromApiWithLocation };
