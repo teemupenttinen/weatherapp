@@ -3,6 +3,6 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY src /app/src
-COPY webpack.config.js /app
+COPY webpack.config.js .babelrc /app/
 EXPOSE 8000
 CMD npm start

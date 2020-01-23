@@ -25,7 +25,7 @@ export default class WeatherContainer extends React.Component {
         navigator.geolocation.getCurrentPosition(async (location) => {
             const weatherResponse = await getWeatherFromApiWithLocation(location);
             this.setWeatherResponse(weatherResponse);
-            const forecastResponse = await getForecastFromApiWithLocation();
+            const forecastResponse = await getForecastFromApiWithLocation(location);
             this.setForecastResponse(forecastResponse);
         }, async () => {
             // In case the user decides not to allow location, get weather from backend's location.
