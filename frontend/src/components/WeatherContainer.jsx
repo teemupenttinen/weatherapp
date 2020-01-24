@@ -2,7 +2,7 @@ import React from 'react';
 import CurrentWeatherWidget from './CurrentWeatherWidget/CurrentWeatherWidget';
 import ForecastList from './ForecastList/ForecastList';
 import epochConverter from '../common/utils';
-import { getWeatherFromApi, getWeatherFromApiWithLocation, getForecastFromApiWithLocation } from '../common/api';
+import { getWeatherFromApi, getWeatherFromApiWithLocation, getForecastFromApi, getForecastFromApiWithLocation } from '../common/api';
 
 export default class WeatherContainer extends React.Component {
 
@@ -19,7 +19,7 @@ export default class WeatherContainer extends React.Component {
     }
 
     async componentDidMount() {
-        if(!navigator.geolocation){
+        if (!navigator.geolocation) {
             return;
         }
         navigator.geolocation.getCurrentPosition(async (location) => {
