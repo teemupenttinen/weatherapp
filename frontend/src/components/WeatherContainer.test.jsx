@@ -11,41 +11,39 @@ import ForecastList from './ForecastList/ForecastList';
 configure({ adapter: new Adapter() });
 
 const weatherProps = {
-    icon: weather.weather[0].icon.slice(0, -1),
-    name: weather.name,
-    temp: weather.main.temp,
-    time: epochConverter(weather.dt)
-}
+  icon: weather.weather[0].icon.slice(0, -1),
+  name: weather.name,
+  temp: weather.main.temp,
+  time: epochConverter(weather.dt),
+};
 
 const forecastProps = {
-    forecasts: forecasts
-}
+  forecasts,
+};
 
 describe('<WeatherContainer/>', () => {
+  let wrapper;
 
-    let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<WeatherContainer />);
+  });
 
-    beforeEach(() => {
-        wrapper = shallow(<WeatherContainer />);
+  it('should render <CurrentWeatherWidget/>', () => {
+    wrapper.setState({
+      icon: weather.weather[0].icon.slice(0, -1),
+      name: weather.name,
+      temp: weather.main.temp,
+      time: epochConverter(weather.dt),
+    }, () => {
+      expect(wrapper.contains(<CurrentWeatherWidget {...weatherProps} />)).toEqual(true);
     });
+  });
 
-    it('should render <CurrentWeatherWidget/>', () => {
-        wrapper.setState({
-            icon: weather.weather[0].icon.slice(0, -1),
-            name: weather.name,
-            temp: weather.main.temp,
-            time: epochConverter(weather.dt)
-        }, () => {
-            expect(wrapper.contains(<CurrentWeatherWidget {...weatherProps} />)).toEqual(true);
-        })
+  it('should render <ForecastList/>', () => {
+    wrapper.setState({
+      forecasts,
+    }, () => {
+      expect(wrapper.contains(<ForecastList {...forecastProps} />)).toEqual(true);
     });
-
-    it('should render <ForecastList/>', () => {
-        wrapper.setState({
-            forecasts: forecasts
-        }, () => {
-            expect(wrapper.contains(<ForecastList {...forecastProps} />)).toEqual(true);
-        })
-    });
-
+  });
 });

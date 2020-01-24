@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ForecastItem from '../ForecastItem/ForecastItem';
 import epochConverter from '../../common/utils';
@@ -36,5 +36,5 @@ export default function ForecastList(props) {
 }
 
 ForecastList.propTypes = {
-  forecasts: PropTypes.array.isRequired,
+  forecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

@@ -7,27 +7,26 @@ import ForecastItem from '../ForecastItem/ForecastItem';
 import { forecasts } from '../../assets/test-data';
 
 const props = {
-    forecasts: forecasts
-}
+  forecasts,
+};
 
 configure({ adapter: new Adapter() });
 
 describe('<ForecastList/>', () => {
+  let wrapper;
 
-    let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<ForecastList forecasts={[]} />);
+  });
 
-    beforeEach(() => {
-        wrapper = mount(<ForecastList forecasts={[]}/>);
+  it('should render 5 items of <ForecastItem>', () => {
+    wrapper.setProps({
+      ...props,
     });
+    expect(wrapper.find(ForecastItem)).toHaveLength(5);
+  });
 
-    it('should render 5 items of <ForecastItem>', () => {
-        wrapper.setProps({
-            ...props
-        });
-        expect(wrapper.find(ForecastItem)).toHaveLength(5);
-    });
-
-    it('should render text "No forecasts available" if no forecasts are injected', () => {
-        expect(wrapper.contains(<h1>No forecasts available</h1>)).toEqual(true);
-    });
+  it('should render text "No forecasts available" if no forecasts are injected', () => {
+    expect(wrapper.contains(<h1>No forecasts available</h1>)).toEqual(true);
+  });
 });

@@ -42,4 +42,7 @@ const getForecastFromApiWithLocation = async (location) => {
   }
 };
 
-export { getWeatherFromApi, getWeatherFromApiWithLocation, getForecastFromApi, getForecastFromApiWithLocation };
+export {
+  getWeatherFromApi, getWeatherFromApiWithLocation,
+  getForecastFromApi, getForecastFromApiWithLocation,
+};
