@@ -1,0 +1,1 @@
+docker run -it -v %cd%/test.robot:/tests/test.robot:ro -v %cd%/out:/out:rw weatherapp_robot_tests --outputdir /out /tests

@@ -12,13 +12,6 @@ services:
             - /app/node_modules
         ports:
             - '8000:8000'
-    frontend-test:
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile.dev
-        ports:
-            - '8001:8001'
-        command: ['npm', 'run', 'test']
     test-backend:
         build: ./test-backend
         env_file: 
@@ -28,8 +21,27 @@ services:
             TARGET_CITY: 'Turku,fi'
         ports:
             - '9001:9001'
+    # robot:
+    #     build: ./robot-tests
+    #     depends_on: 
+    #         - test-backend
+    #         - frontend
+    #     volumes: 
+    #         - ./robot-tests/tests/test.robot:/tests/test.robot:ro
+    #         - ./robot-tests/out:/out:rw
+    #     command: ["--outputdir", "/out", "/tests"]
+    #     entrypoint: [ "./wait-for-it.sh", "frontend:8000","--", "./opt/bin/entry_point.sh" ]
+    #     networks: 
+    #         - test
     backend:
         volumes: 
             - ./backend:/app
             -  /app/node_modules
+        command: ['npm', 'run', 'test']
+    frontend-test:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile.dev
+        ports:
+            - '8001:8001'
         command: ['npm', 'run', 'test']
