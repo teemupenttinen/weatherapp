@@ -13,7 +13,9 @@ For testing purposes this key may be used: **a0cf72411f1982712f19b222bfd31f4c**
 
 You can build and run the development environment with hot reload using command:
 
-*docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build*
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
 
 ### **Testing**
 
